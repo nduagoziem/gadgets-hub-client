@@ -21,7 +21,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      appURL: "https://gadgets-hub-seven.vercel.app",
+      appURL: "https://gadgets-hub-client.vercel.app",
       apiAuth: "https://gadgets-hub-api.freeddns.org",
       apiBase: "https://gadgets-hub-api.freeddns.org/api",
       appName: "Gadgets Hub",
