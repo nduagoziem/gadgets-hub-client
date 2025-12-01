@@ -22,9 +22,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appURL: "https://gadgets-hub-seven.vercel.app",
-      apiAuth: "https://gadgets-hub.up.railway.app",
-      apiBase: "https://gadgets-hub.up.railway.app/api",
+      apiAuth: "https://gadgets-hub-api.freeddns.org",
+      apiBase: "https://gadgets-hub-api.freeddns.org/api",
       appName: "Gadgets Hub",
+      // appURL: "http://localhost:3000",
+      // apiAuth: "http://localhost:8000",
+      // apiBase: "http://localhost:8000/api",
+      // appName: "Gadgets Hub",
     },
   },
 });
