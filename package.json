@@ -14,6 +14,7 @@
     "@pinia/nuxt": "^0.11.2",
     "@tailwindcss/vite": "^4.1.5",
     "flowbite": "^3.1.2",
+    "js-cookie": "^3.0.5",
     "nuxt": "^3.17.1",
     "nuxt-auth-sanctum": "^1.1.2",
     "pinia": "^3.0.3",

@@ -7,6 +7,7 @@ definePageMeta({
 import { onBeforeMount, ref } from 'vue';
 import guest from '@/middleware/guest';
 import { reloadNuxtApp } from 'nuxt/app';
+import Cookies from 'js-cookie';
 
 const showPassword = ref(false);
 const config = useRuntimeConfig();
@@ -28,16 +29,14 @@ onBeforeMount(
 )
 const login = async () => {
     try {
-        const xsrfToken = useCookie('XSRF-TOKEN')
-        const decodedToken = xsrfToken ? decodeURIComponent(xsrfToken) : null
-
-        console.log('XSRF Token:', decodedToken) // Debug line - remove later
+        const xsrfToken = Cookies.get('XSRF-TOKEN')
+        console.log('XSRF Token:', xsrfToken) // Debug line - remove later
 
         const response = await $fetch('/customer/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': decodedToken,
+                'X-XSRF-TOKEN': '',
             },
             credentials: 'include',
             baseURL: config.public.apiAuth,
