@@ -4,7 +4,7 @@ definePageMeta({
     middleware: guest,
 });
 
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import guest from '@/middleware/guest';
 import { reloadNuxtApp } from 'nuxt/app';
 
@@ -17,9 +17,9 @@ const password = ref("");
  * Fetches CSRF Token from the backend before making further requests.
  * DO NOT SKIP THIS PROCESS.
  */
-onMounted(
+onBeforeMount(
     async () => {
-        await $fetch(`sanctum/csrf-cookie`, {
+        await $fetch("/sanctum/csrf-cookie", {
             method: "GET",
             credentials: "include",
             baseURL: config.public.apiAuth,
@@ -41,7 +41,7 @@ const login = async () => {
         alert(response.message);
         email.value = "";
         password.value = "";
-        reloadNuxtApp({path: "/"});
+        reloadNuxtApp({ path: "/" });
     } catch (err) {
         if (err.status === 401) {
             alert(err.data.message);
