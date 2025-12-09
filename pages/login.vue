@@ -28,11 +28,16 @@ onBeforeMount(
 )
 const login = async () => {
     try {
+        const xsrfToken = useCookie('XSRF-TOKEN').value
+        const decodedToken = xsrfToken ? decodeURIComponent(xsrfToken) : null
+
+        console.log('XSRF Token:', decodedToken) // Debug line - remove later
+
         const response = await $fetch('/customer/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value,
+                'X-XSRF-TOKEN': decodedToken,
             },
             credentials: 'include',
             baseURL: config.public.apiAuth,
