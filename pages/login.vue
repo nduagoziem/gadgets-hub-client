@@ -28,7 +28,7 @@ onBeforeMount(
 )
 const login = async () => {
     try {
-        const xsrfToken = useCookie('XSRF-TOKEN').value
+        const xsrfToken = useCookie('XSRF-TOKEN')
         const decodedToken = xsrfToken ? decodeURIComponent(xsrfToken) : null
 
         console.log('XSRF Token:', decodedToken) // Debug line - remove later
