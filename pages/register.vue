@@ -34,7 +34,7 @@ const register = async () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value,
+                'Accept': 'application/json',
             },
             credentials: 'include',
             baseURL: config.public.apiAuth,

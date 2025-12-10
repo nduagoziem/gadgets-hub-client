@@ -22,21 +22,19 @@ onBeforeMount(
     async () => {
         await $fetch("/sanctum/csrf-cookie", {
             method: "GET",
-            // credentials: "include",
+            credentials: "include",
             baseURL: config.public.apiAuth,
         })
     }
 )
 const login = async () => {
     try {
-        const xsrfToken = Cookies.get('XSRF-TOKEN')
-        console.log('XSRF Token:', xsrfToken) // Debug line - remove later
 
         const response = await $fetch('/customer/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': xsrfToken,
+                'Accept': 'application/json',
             },
             credentials: 'include',
             baseURL: config.public.apiAuth,
