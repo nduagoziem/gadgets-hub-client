@@ -4,7 +4,6 @@ definePageMeta({
     middleware: guest,
 });
 
-import { useCookie } from 'nuxt/app';
 import { ref } from 'vue';
 import guest from '@/middleware/guest';
 

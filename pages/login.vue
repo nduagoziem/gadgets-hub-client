@@ -7,7 +7,6 @@ definePageMeta({
 import { onBeforeMount, ref } from 'vue';
 import guest from '@/middleware/guest';
 import { reloadNuxtApp } from 'nuxt/app';
-import Cookies from 'js-cookie';
 
 const showPassword = ref(false);
 const config = useRuntimeConfig();
