@@ -34,6 +34,7 @@ const login = async () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value,
             },
             credentials: 'include',
             baseURL: config.public.apiAuth,
