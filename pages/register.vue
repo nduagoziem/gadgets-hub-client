@@ -41,10 +41,6 @@ const register = async () => {
 
         const xsrfToken = getCookie('XSRF-TOKEN');
 
-        if (!xsrfToken) {
-            alert('CSRF token not found. Please refresh the page.');
-            return;
-        }
         const response = await $fetch('/customer/register', {
             method: 'POST',
             headers: {

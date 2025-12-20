@@ -28,10 +28,6 @@ const logout = async () => {
         try {
             const xsrfToken = getCookie('XSRF-TOKEN');
 
-            if (!xsrfToken) {
-                alert('CSRF token not found. Please refresh the page.');
-                return;
-            }
             const response = await $fetch('/customer/logout', {
                 method: 'POST',
                 headers: {
