@@ -27,14 +27,30 @@ onMounted(
     }
 )
 
+const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return decodeURIComponent(parts.pop().split(';').shift());
+    }
+    return null;
+};
+
 const register = async () => {
     try {
+
+        const xsrfToken = getCookie('XSRF-TOKEN');
+
+        if (!xsrfToken) {
+            alert('CSRF token not found. Please refresh the page.');
+            return;
+        }
         const response = await $fetch('/customer/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value,
+                'X-XSRF-TOKEN': xsrfToken,
             },
             credentials: 'include',
             baseURL: config.public.apiAuth,
