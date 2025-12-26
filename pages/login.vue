@@ -28,19 +28,8 @@ onBeforeMount(
     }
 )
 
-const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-        return decodeURIComponent(parts.pop().split(';').shift());
-    }
-    return null;
-};
-
 const login = async () => {
     try {
-        const xsrfToken = getCookie('XSRF-TOKEN');
-
         const response = await axios.post(
             `${config.public.apiAuth}/customer/login`,
             { email: email.value, password: password.value },
@@ -48,9 +37,9 @@ const login = async () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'X-XSRF-TOKEN': xsrfToken
                 },
                 withCredentials: true,
+                withXSRFToken: true,
             }
         );
 

@@ -1,6 +1,7 @@
 <script setup>
 import { useCustomerInfoStore } from '@/stores/customerInfo';
-import { reloadNuxtApp, useRuntimeConfig } from 'nuxt/app';
+import axios from 'axios';
+import { reloadNuxtApp, useCookie, useRuntimeConfig } from 'nuxt/app';
 
 const { customerInfo } = useCustomerInfoStore();
 const config = useRuntimeConfig();
@@ -13,20 +14,10 @@ const initials = computed(() => {
         .slice(0, 2)
 })
 
-const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-        return decodeURIComponent(parts.pop().split(';').shift());
-    }
-    return null;
-};
-
 const logout = async () => {
     const confirm = window.confirm("Sure you wanna logout?")
     if (confirm) {
         try {
-            const xsrfToken = getCookie('XSRF-TOKEN');
 
             const response = await axios.post(
                 `${config.public.apiAuth}/customer/logout`,
@@ -34,9 +25,10 @@ const logout = async () => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-XSRF-TOKEN': xsrfToken,
                     },
                     withCredentials: true,
+                    withXSRFToken: true,
+
                 }
             );
             alert(response.data.message);
