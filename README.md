@@ -1,6 +1,8 @@
-# Nuxt Minimal Starter
+<h1 align="center">GADGETS HUB</h1>
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<p align="center"><img src="assets/Images/gadgets-hub.png" alt="Gadgets Hub Preview" style="width: 300px"/></p>
+
+An brand that deals on all kinds of gadgets. Built with the <strong>Nuxt Framework.</strong>
 
 ## Setup
 
@@ -71,5 +73,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
