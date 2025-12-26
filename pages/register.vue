@@ -37,6 +37,7 @@ const register = async () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
+                    "XSRF-TOKEN": useCookie("XSRF-TOKEN").value
                 },
                 withCredentials: true,
                 withXSRFToken: true,

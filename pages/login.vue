@@ -6,7 +6,7 @@ definePageMeta({
 
 import { onBeforeMount, ref } from 'vue';
 import guest from '@/middleware/guest';
-import { reloadNuxtApp } from 'nuxt/app';
+import { reloadNuxtApp, useCookie } from 'nuxt/app';
 import axios from 'axios';
 
 const showPassword = ref(false);
@@ -37,6 +37,7 @@ const login = async () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
+                    "XSRF-TOKEN": useCookie("XSRF-TOKEN").value
                 },
                 withCredentials: true,
                 withXSRFToken: true,

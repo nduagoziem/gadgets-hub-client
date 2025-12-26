@@ -25,6 +25,7 @@ const logout = async () => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
+                        "XSRF-TOKEN": useCookie("XSRF-TOKEN").value
                     },
                     withCredentials: true,
                     withXSRFToken: true,
