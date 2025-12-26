@@ -38,32 +38,33 @@ const getCookie = (name) => {
 
 const register = async () => {
     try {
-
         const xsrfToken = getCookie('XSRF-TOKEN');
 
-        const response = await $fetch('/customer/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-XSRF-TOKEN': xsrfToken,
-            },
-            credentials: 'include',
-            baseURL: config.public.apiAuth,
-            body: { name: name.value, email: email.value, password: password.value, },
-        });
-        alert(response.message);
+        const response = await axios.post(
+            `${config.public.apiAuth}/customer/register`,
+            { name: name.value, email: email.value, password: password.value },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-XSRF-TOKEN': xsrfToken
+                },
+                withCredentials: true,
+            }
+        );
+
+        alert(response.data.message);
         name.value = "";
         email.value = "";
         password.value = "";
         reloadNuxtApp({ path: "/" });
     } catch (err) {
-        if (err.status === 422 && err.data && err.data.error.email) {
-            alert(err.data.error.email[0]);
-        } else if (err.status === 422 && err.data && err.data.error.password) {
-            alert(err.data.error.password[0]);
+        if (err.status === 422 && err.response.data && err.response.data.error.email) {
+            alert(err.response.data.error.email[0]);
+        } else if (err.status === 422 && err.data && err.response.data.error.password) {
+            alert(err.response.data.error.password[0]);
         } else {
-            "Unknown Error:", err
+            console.log("Something Went Wrong, Try Again");
         }
     }
 }

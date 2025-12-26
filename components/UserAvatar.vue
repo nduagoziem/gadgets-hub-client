@@ -28,20 +28,22 @@ const logout = async () => {
         try {
             const xsrfToken = getCookie('XSRF-TOKEN');
 
-            const response = await $fetch('/customer/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-XSRF-TOKEN': xsrfToken,
-                },
-                credentials: 'include',
-                baseURL: config.public.apiAuth,
-            });
-            alert(response.message);
+            const response = await axios.post(
+                `${config.public.apiAuth}/customer/logout`,
+                {},
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-XSRF-TOKEN': xsrfToken,
+                    },
+                    withCredentials: true,
+                }
+            );
+            alert(response.data.message);
             return reloadNuxtApp({ path: "/login" });
         } catch (err) {
             if (err) {
-                console.log(err)
+                throw err;
             }
         }
 

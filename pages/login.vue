@@ -7,6 +7,7 @@ definePageMeta({
 import { onBeforeMount, ref } from 'vue';
 import guest from '@/middleware/guest';
 import { reloadNuxtApp } from 'nuxt/app';
+import axios from 'axios';
 
 const showPassword = ref(false);
 const config = useRuntimeConfig();
@@ -38,34 +39,35 @@ const getCookie = (name) => {
 
 const login = async () => {
     try {
-
         const xsrfToken = getCookie('XSRF-TOKEN');
 
-        const response = await $fetch('/customer/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-XSRF-TOKEN': xsrfToken
-            },
-            credentials: 'include',
-            baseURL: config.public.apiAuth,
-            body: { email: email.value, password: password.value, },
-        });
-        alert(response.message);
+        const response = await axios.post(
+            `${config.public.apiAuth}/customer/login`,
+            { email: email.value, password: password.value },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-XSRF-TOKEN': xsrfToken
+                },
+                withCredentials: true,
+            }
+        );
+
+        alert(response.data.message);
         email.value = "";
         password.value = "";
         reloadNuxtApp({ path: "/" });
     } catch (err) {
         if (err.status === 401) {
-            alert(err.data.message);
+            alert(err.response.data.message);
         }
-        if (err.status === 422 && err.data && err.data.error.email) {
-            alert(err.data.error.email[0]);
-        } else if (err.status === 422 && err.data && err.data.error.password) {
-            alert(err.data.error.password[0]);
+        if (err.status === 422 && err.response.data && err.response.data.error.email) {
+            alert(err.response.data.error.email[0]);
+        } else if (err.status === 422 && err.data && err.response.data.error.password) {
+            alert(err.response.data.error.password[0]);
         } else {
-            "Unknown Error:", err
+            console.log("Something Went Wrong, Try Again");
         }
     }
 }
